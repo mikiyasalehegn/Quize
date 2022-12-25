@@ -3,10 +3,10 @@ from utilities import *
 
 class Quiz(Store):
     def index(self):
+        self.first_screen.place_forget()
         self.ask()
         self.ops()
         self.ans()
-        self.first_screen.place_forget()
         self.frame.place(relx=.5, rely=.5, anchor=CENTER,)
         self.question = Label(self.frame, width=65, font="Arial, 15",
                               text=self.questions[0])
@@ -24,29 +24,38 @@ class Quiz(Store):
         self.option2.pack(padx=60)
         self.option3.pack(padx=60)
 
-        next_button = Button(self.frame, text="next", command=self.nextt)
-        next_button.pack()
+        next_button = Button(self.frame, text="Next", command=self.nextt)
+        next_button.pack(side="bottom")
+
+        # home_button = Button(self.frame, text="Home", command=self.back)
+        # home_button.pack(side="bottom")
 
         score = Label(self.window)
         score.place_forget()
 
     def nextt(self):
         if self.val1.get() == 1:
-            selected_option = 1
+            self.selected_option = 1
         elif self.val2.get() == 1:
-            selected_option = 2
+            self.selected_option = 2
         elif self.val3.get() == 1:
-            selected_option = 3
+            self.selected_option = 3
         else:
-            selected_option = -1
-        if self.answers[self.question_num - 1] == selected_option:
+            self.selected_option = -1
+        if self.answers[self.question_num - 1] == self.selected_option:
+            self.correct_ans.pack(side="top")
+            self.correct_ans.config(text="Correct", bg="#008000", width=10)
             self.Score += 1
+        elif self.answers[self.question_num - 1] != self.selected_option:
+            self.correct_ans.pack(side="top")
+            self.correct_ans.config(text="Wrong", bg="#FF0000", width=10)
         self.question_num += 1
         if self.question_num > self.total_question:
+            self.show_score()
+            self.correct_ans.destroy()
             self.frame.place_forget()
-            self.score.place(relx=.5, rely=.5, anchor=CENTER)
-            self.score.config(text="Score: " + str(self.Score))
         else:
+            self.show_score()
             self.val1.set(0)
             self.val2.set(0)
             self.val3.set(0)
@@ -67,6 +76,7 @@ class Quiz(Store):
             self.val2.set(0)
 
     def select(self):
+        self.frame.pack_forget()
         self.first_screen.place(relx=.5, rely=.5, anchor=CENTER)
 
         lable_1 = Label(self.first_screen,
@@ -79,3 +89,5 @@ class Quiz(Store):
         self.play_b = Button(self.first_screen, text="Play", command=self.index)
         self.play_b.pack()
         self.window.mainloop()
+
+

@@ -3,9 +3,8 @@ from tkinter import *
 
 
 class Store:
-    """This class consists of functions that will keep winners data on the national lottery institute's database"""
     def __init__(self):
-        super().__init__()
+        # self.selected_option = None
         self.Score = 0
         self.total_question = 5
         self.question_num = 1
@@ -13,8 +12,9 @@ class Store:
         self.window.config(padx=25, pady=25, bg="#4D5656")
         self.window.title("Trivia Game")
         self.frame = Frame()
-        self.window.geometry("900x300")
+        self.window.geometry("900x500")
         self.score = Label(self.window)
+        self.correct_ans = Label(self.window)
         self.val1 = IntVar()
         self.val2 = IntVar()
         self.val3 = IntVar()
@@ -30,6 +30,10 @@ class Store:
 
         self.cursor = self.connection.cursor()
         self.table = "animals"
+
+    def show_score(self):
+        self.score.pack(side="top")
+        self.score.config(text="Score: " + str(self.Score)+"/"+str(self.total_question), width=10)
 
     def ask(self):
         self.cursor.execute(f"Select questions from "+self.question[int(self.category.get()) - 1]+"")
