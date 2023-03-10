@@ -11,7 +11,7 @@ that test your knowledge on different subjects. However, trivia games are much m
 
 ## Authors
 
-- [@octokatherine](https://github.com/mikiyasalehegn)
+- [@Mikiyasalehegn](https://github.com/mikiyasalehegn)
 
 
 ## Description of the project
