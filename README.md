@@ -27,7 +27,7 @@ There are 5 categories. Each category consists of 5 questions & Answers.
 
 ## Tech Stack
 
-**Python
+- Python
 
-**SQL
+- SQL
 
